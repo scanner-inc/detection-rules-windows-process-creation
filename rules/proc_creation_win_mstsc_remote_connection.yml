@@ -1,3 +1,4 @@
+# schema: https://scanner.dev/schema/scanner-detection-rule.v1.json
 name: New Remote Desktop Connection Initiated Via Mstsc.EXE
 enabled: true
 description: |-

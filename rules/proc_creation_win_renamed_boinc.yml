@@ -1,3 +1,4 @@
+# schema: https://scanner.dev/schema/scanner-detection-rule.v1.json
 name: Renamed BOINC Client Execution
 enabled: true
 description: |-

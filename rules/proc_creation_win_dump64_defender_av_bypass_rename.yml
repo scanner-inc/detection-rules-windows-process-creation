@@ -1,3 +1,4 @@
+# schema: https://scanner.dev/schema/scanner-detection-rule.v1.json
 name: Potential Windows Defender AV Bypass Via Dump64.EXE Rename
 enabled: true
 description: |-

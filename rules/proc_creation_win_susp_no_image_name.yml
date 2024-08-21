@@ -1,3 +1,4 @@
+# schema: https://scanner.dev/schema/scanner-detection-rule.v1.json
 name: Process Launched Without Image Name
 enabled: true
 description: |-

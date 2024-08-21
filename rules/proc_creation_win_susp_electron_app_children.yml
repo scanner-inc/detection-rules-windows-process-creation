@@ -1,3 +1,4 @@
+# schema: https://scanner.dev/schema/scanner-detection-rule.v1.json
 name: Suspicious Electron Application Child Processes
 enabled: true
 description: |-
