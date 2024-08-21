@@ -1,0 +1,44 @@
+name: New Remote Desktop Connection Initiated Via Mstsc.EXE
+enabled: true
+description: |-
+  Detects the usage of "mstsc.exe" with the "/v" flag to initiate a connection to a remote server.
+  Adversaries may use valid accounts to log into a computer using the Remote Desktop Protocol (RDP). The adversary may then perform actions as the logged-on user.
+
+
+  References:
+  * https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1021.001/T1021.001.md#t1021001---remote-desktop-protocol
+  * https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/mstsc
+
+  False Positives:
+  * WSL (Windows Sub System For Linux)
+severity: Medium
+query_text: |-
+  %ingest.source_type="windows:process_creation"
+  (
+    Image: '\\mstsc.exe'
+    or OriginalFileName: 'mstsc.exe'
+  )
+  CommandLine: (
+    ' -v:'
+    ' /v:'
+  )
+  not (
+    ParentImage: 'C:\\Windows\\System32\\lxss\\wslhost.exe'
+    CommandLine: 'C:\\ProgramData\\Microsoft\\WSL\\wslg.rdp'
+  )
+  | stats
+    min(timestamp) as firstTime,
+    max(timestamp) as lastTime,
+    count() as eventCount
+    by
+    Image,
+    OriginalFileName,
+    CommandLine,
+    SubjectDomainName,
+    SubjectUserName,
+    SubjectLogonId
+time_range_s: 300
+run_frequency_s: 60
+event_sink_keys:
+- medium_severity_alerts
+

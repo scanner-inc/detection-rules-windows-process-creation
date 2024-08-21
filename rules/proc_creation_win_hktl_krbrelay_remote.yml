@@ -1,0 +1,49 @@
+name: HackTool - RemoteKrbRelay Execution
+enabled: true
+description: |-
+  Detects the use of RemoteKrbRelay, a Kerberos relaying tool via CommandLine flags and PE metadata.
+
+
+  References:
+  * https://github.com/CICADA8-Research/RemoteKrbRelay
+
+  False Positives:
+  * Unlikely
+severity: High
+query_text: |-
+  %ingest.source_type="windows:process_creation"
+  (
+    (
+      Image:'\\RemoteKrbRelay.exe'
+      or OriginalFileName: 'RemoteKrbRelay.exe'
+    )
+    or CommandLine: (' -clsid ' and ' -target ' and ' -victim ')
+    or (
+      CommandLine: '-rbcd '
+      CommandLine: ('-cn ' '--computername ')
+    )
+    or CommandLine: ('-chp ' and '-chpPass ' and '-chpUser ')
+    or CommandLine: ('-addgroupmember ' and '-group ' and '-groupuser ')
+    or (
+      CommandLine: ('-smb ' and '--smbkeyword ')
+      CommandLine: (
+        'interactive' 'secrets' 'service-add'
+      )
+    )
+  )
+  | stats
+    min(timestamp) as firstTime,
+    max(timestamp) as lastTime,
+    count() as eventCount
+    by
+    Image,
+    OriginalFileName,
+    CommandLine,
+    SubjectDomainName,
+    SubjectUserName,
+    SubjectLogonId
+time_range_s: 300
+run_frequency_s: 60
+event_sink_keys:
+- high_severity_alerts
+

@@ -1,0 +1,44 @@
+name: Uncommon Link.EXE Parent Process
+enabled: true
+description: |-
+  Detects an uncommon parent process of "LINK.EXE".
+  Link.EXE in Microsoft incremental linker. Its a utility usually bundled with Visual Studio installation.
+  Multiple utilities often found in the same folder (editbin.exe, dumpbin.exe, lib.exe, etc) have a hardcode call to the "LINK.EXE" binary without checking its validity.
+  This would allow an attacker to sideload any binary with the name "link.exe" if one of the aforementioned tools get executed from a different location.
+  By filtering the known locations of such utilities we can spot uncommon parent process of LINK.EXE that might be suspicious or malicious.
+
+
+  References:
+  * https://twitter.com/0gtweet/status/1560732860935729152
+
+  False Positives:
+  * Unknown
+severity: Medium
+query_text: |-
+  %ingest.source_type="windows:process_creation"
+  Image: '\\link.exe'
+  CommandLine: 'LINK /'
+  (not
+    ParentImage: (
+      'C:\\Program Files\\Microsoft Visual Studio\\'
+      'C:\\Program Files (x86)\\Microsoft Visual Studio\\'
+      '\\VC\\bin\\'
+      '\\VC\\Tools\\'
+    )
+  )
+  | stats
+    min(timestamp) as firstTime,
+    max(timestamp) as lastTime,
+    count() as eventCount
+    by
+    Image,
+    OriginalFileName,
+    CommandLine,
+    SubjectDomainName,
+    SubjectUserName,
+    SubjectLogonId
+time_range_s: 300
+run_frequency_s: 60
+event_sink_keys:
+- medium_severity_alerts
+

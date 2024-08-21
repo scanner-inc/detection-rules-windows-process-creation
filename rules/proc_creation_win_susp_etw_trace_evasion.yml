@@ -1,0 +1,47 @@
+name: ETW Trace Evasion Activity
+enabled: true
+description: |-
+  Detects command line activity that tries to clear or disable any ETW trace log which could be a sign of logging evasion.
+
+
+  References:
+  * https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/wevtutil
+  * https://abuse.io/lockergoga.txt
+  * https://medium.com/palantir/tampering-with-windows-event-tracing-background-offense-and-defense-4be7ac62ac63
+
+  False Positives:
+  * Unknown
+severity: High
+query_text: |-
+  %ingest.source_type="windows:process_creation"
+  (
+    CommandLine: ('cl' and '/Trace')
+    or CommandLine: ('clear-log' and '/Trace')
+    or CommandLine: ('sl' and '/e:false')
+    or CommandLine: ('set-log' and '/e:false')
+    or CommandLine: (
+      'logman' and
+      'update' and
+      'trace' and
+      '--p' and
+      '-ets'
+    )
+    or CommandLine: 'Remove-EtwTraceProvider'
+    or CommandLine: ('Set-EtwTraceProvider' and '0x11')
+  )
+  | stats
+    min(timestamp) as firstTime,
+    max(timestamp) as lastTime,
+    count() as eventCount
+    by
+    Image,
+    OriginalFileName,
+    CommandLine,
+    SubjectDomainName,
+    SubjectUserName,
+    SubjectLogonId
+time_range_s: 300
+run_frequency_s: 60
+event_sink_keys:
+- high_severity_alerts
+

@@ -1,0 +1,43 @@
+name: Potential Windows Defender AV Bypass Via Dump64.EXE Rename
+enabled: true
+description: |-
+  Detects when a user is potentially trying to bypass the Windows Defender AV by renaming a tool to dump64.exe and placing it in the Visual Studio folder.
+  Currently the rule is covering only usage of procdump but other utilities can be added in order to increase coverage.
+
+
+  References:
+  * https://twitter.com/mrd0x/status/1460597833917251595
+
+  False Positives:
+  * Unknown
+severity: High
+query_text: |-
+  %ingest.source_type="windows:process_creation"
+  Image: (
+    ':\\Program Files'
+    and '\\Microsoft Visual Studio\\'
+    and '\\dump64.exe'
+  )
+  (
+    OriginalFileName: 'procdump'
+    or CommandLine: (
+      ' -ma '
+      ' -mp '
+    )
+  )
+  | stats
+    min(timestamp) as firstTime,
+    max(timestamp) as lastTime,
+    count() as eventCount
+    by
+    Image,
+    OriginalFileName,
+    CommandLine,
+    SubjectDomainName,
+    SubjectUserName,
+    SubjectLogonId
+time_range_s: 300
+run_frequency_s: 60
+event_sink_keys:
+- high_severity_alerts
+

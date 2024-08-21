@@ -1,0 +1,43 @@
+name: Uncommon Child Process Of Setres.EXE
+enabled: true
+description: |-
+  Detects uncommon child process of Setres.EXE.
+  Setres.EXE is a Windows server only process and tool that can be used to set the screen resolution.
+  It can potentially be abused in order to launch any arbitrary file with a name containing the word "choice" from the current execution path.
+
+
+  References:
+  * https://lolbas-project.github.io/lolbas/Binaries/Setres/
+  * https://twitter.com/0gtweet/status/1583356502340870144
+  * https://strontic.github.io/xcyclopedia/library/setres.exe-0E30E4C09637D7A128A37B59A3BC4D09.html
+  * https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/cc731033(v=ws.11)
+
+  False Positives:
+  * Unlikely
+severity: High
+query_text: |-
+  %ingest.source_type="windows:process_creation"
+  ParentImage: '\\setres.exe'
+  Image: '\\choice'
+  (not
+    Image: (
+      'C:\\Windows\\System32\\choice.exe'
+      'C:\\Windows\\SysWOW64\\choice.exe'
+    )
+  )
+  | stats
+    min(timestamp) as firstTime,
+    max(timestamp) as lastTime,
+    count() as eventCount
+    by
+    Image,
+    OriginalFileName,
+    CommandLine,
+    SubjectDomainName,
+    SubjectUserName,
+    SubjectLogonId
+time_range_s: 300
+run_frequency_s: 60
+event_sink_keys:
+- high_severity_alerts
+

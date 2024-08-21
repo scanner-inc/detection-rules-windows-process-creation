@@ -1,0 +1,42 @@
+name: Data Export From MSSQL Table Via BCP.EXE
+enabled: true
+description: |-
+  Detects the execution of the BCP utility in order to export data from the database.
+  Attackers were seen saving their malware to a database column or table and then later extracting it via "bcp.exe" into a file.
+
+
+  References:
+  * https://docs.microsoft.com/en-us/sql/tools/bcp-utility
+  * https://asec.ahnlab.com/en/61000/
+  * https://asec.ahnlab.com/en/78944/
+  * https://www.huntress.com/blog/attacking-mssql-servers
+  * https://www.huntress.com/blog/attacking-mssql-servers-pt-ii
+  * https://news.sophos.com/en-us/2024/08/07/sophos-mdr-hunt-tracks-mimic-ransomware-campaign-against-organizations-in-india/
+  * https://research.nccgroup.com/2018/03/10/apt15-is-alive-and-strong-an-analysis-of-royalcli-and-royaldns/
+
+  False Positives:
+  * Legitimate data export operations.
+severity: Medium
+query_text: |-
+  %ingest.source_type="windows:process_creation"
+  (
+    Image: 'bcp.exe'
+    or OriginalFileName: "BCP.exe"
+  )
+  CommandLine: (' out ' ' queryout ')
+  | stats
+  min(timestamp) as firstTime,
+  max(timestamp) as lastTime,
+  count() as eventCount
+  by
+  Image,
+  OriginalFileName,
+  CommandLine,
+  SubjectDomainName,
+  SubjectUserName,
+  SubjectLogonId
+time_range_s: 300
+run_frequency_s: 60
+event_sink_keys:
+- medium_severity_alerts
+
