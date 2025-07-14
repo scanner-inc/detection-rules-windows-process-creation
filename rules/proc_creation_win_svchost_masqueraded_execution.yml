@@ -14,7 +14,7 @@ description: |-
   * Unlikely
 severity: High
 query_text: |-
-  %ingest.source_type="windows:process_creation"
+  %ingest.source_type="windows:process-creation"
   Image: '\\svchost.exe'
   not (
     Image: (

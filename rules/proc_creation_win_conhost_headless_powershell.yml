@@ -13,7 +13,7 @@ description: |-
   * Unknown
 severity: Medium
 query_text: |-
-  %ingest.source_type="windows:process_creation"
+  %ingest.source_type="windows:process-creation"
   (Image:"\\conhost.exe" OR OriginalFileName:"CONHOST.EXE")
   CommandLine: '--headless'
   CommandLine: 'powershell'

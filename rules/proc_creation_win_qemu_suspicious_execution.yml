@@ -14,7 +14,7 @@ description: |-
   * Unknown
 severity: Medium
 query_text: |-
-  %ingest.source_type="windows:process_creation"
+  %ingest.source_type="windows:process-creation"
   CommandLine: (
     '-m 1M'
     '-m 2M'

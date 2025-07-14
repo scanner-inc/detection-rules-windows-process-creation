@@ -14,7 +14,7 @@ description: |-
   * Legitimate use via Intune management. You exclude script paths and names to reduce FP rate
 severity: Medium
 query_text: |-
-  %ingest.source_type="windows:process_creation"
+  %ingest.source_type="windows:process-creation"
   (
     Image: '\\AgentExecutor.exe'
     or OriginalFileName: 'AgentExecutor.exe'

@@ -16,7 +16,7 @@ description: |-
   * Admin activity (unclear what they do nowadays with finger.exe)
 severity: High
 query_text: |-
-  %ingest.source_type="windows:process_creation"
+  %ingest.source_type="windows:process-creation"
   (
     OriginalFileName: 'finger.exe'
     or

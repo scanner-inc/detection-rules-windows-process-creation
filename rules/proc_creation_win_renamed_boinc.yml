@@ -13,7 +13,7 @@ description: |-
   * Unknown
 severity: Medium
 query_text: |-
-  %ingest.source_type="windows:process_creation"
+  %ingest.source_type="windows:process-creation"
   OriginalFileName: 'BOINC.exe'
   (not Image: '\\BOINC.exe')
   | stats

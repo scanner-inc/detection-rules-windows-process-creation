@@ -13,7 +13,7 @@ description: |-
   * UDL files serve as a convenient and flexible tool for managing and testing database connections in various development and administrative scenarios.
 severity: Medium
 query_text: |-
-  %ingest.source_type="windows:process_creation"
+  %ingest.source_type="windows:process-creation"
   ParentImage: '\\explorer.exe'
   (
     Image:'\\rundll32.exe'

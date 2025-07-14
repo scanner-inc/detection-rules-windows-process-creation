@@ -19,7 +19,7 @@ description: |-
   * Legitimate data export operations.
 severity: Medium
 query_text: |-
-  %ingest.source_type="windows:process_creation"
+  %ingest.source_type="windows:process-creation"
   (
     Image: 'bcp.exe'
     or OriginalFileName: "BCP.exe"

@@ -11,7 +11,7 @@ description: |-
   * Rare legitimate software.
 severity: Medium
 query_text: |-
-  %ingest.source_type="windows:process_creation"
+  %ingest.source_type="windows:process-creation"
   Image: '\\.exe'
   | stats
     min(@scnr.datetime) as firstTime,

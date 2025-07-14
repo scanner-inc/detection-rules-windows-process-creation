@@ -14,7 +14,7 @@ description: |-
   * Unknown
 severity: High
 query_text: |-
-  %ingest.source_type="windows:process_creation"
+  %ingest.source_type="windows:process-creation"
   (
     CommandLine: ('cl' and '/Trace')
     or CommandLine: ('clear-log' and '/Trace')

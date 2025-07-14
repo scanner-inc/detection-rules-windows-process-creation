@@ -18,7 +18,7 @@ description: |-
   * Legitimate usage of BitLockerToGo.exe to encrypt portable devices.
 severity: Low
 query_text: |-
-  %ingest.source_type="windows:process_creation"
+  %ingest.source_type="windows:process-creation"
   Image: '\\BitLockerToGo.exe'
   | stats
     min(@scnr.datetime) as firstTime,
