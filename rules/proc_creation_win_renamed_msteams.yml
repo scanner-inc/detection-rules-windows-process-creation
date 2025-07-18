@@ -11,7 +11,7 @@ description: |-
   * Unknown
 severity: Medium
 query_text: |-
-  %ingest.source_type="windows:process-creation"
+  %ingest.source_type="windows:process_creation"
   OriginalFileName: (
     'msteams.exe'
     'teams.exe'

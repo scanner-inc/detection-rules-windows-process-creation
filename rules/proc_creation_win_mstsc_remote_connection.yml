@@ -14,7 +14,7 @@ description: |-
   * WSL (Windows Sub System For Linux)
 severity: Medium
 query_text: |-
-  %ingest.source_type="windows:process-creation"
+  %ingest.source_type="windows:process_creation"
   (
     Image: '\\mstsc.exe'
     or OriginalFileName: 'mstsc.exe'

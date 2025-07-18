@@ -16,7 +16,7 @@ description: |-
   * Unknown
 severity: Medium
 query_text: |-
-  %ingest.source_type="windows:process-creation"
+  %ingest.source_type="windows:process_creation"
   Image: '\\link.exe'
   CommandLine: 'LINK /'
   (not
