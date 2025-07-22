@@ -13,7 +13,7 @@ description: |-
   * Legitimate usage of DSInternals for administration or audit purpose.
 severity: High
 query_text: |-
-  %ingest.source_type="windows:process-creation"
+  %ingest.source_type="windows:process_creation"
   CommandLine: (
     'Add-ADDBSidHistory'
     'Add-ADNgcKey'

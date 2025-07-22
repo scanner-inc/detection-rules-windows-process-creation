@@ -13,7 +13,7 @@ description: |-
   * Unknown
 severity: High
 query_text: |-
-  %ingest.source_type="windows:process-creation"
+  %ingest.source_type="windows:process_creation"
   Image: (
     ':\\Program Files'
     and '\\Microsoft Visual Studio\\'

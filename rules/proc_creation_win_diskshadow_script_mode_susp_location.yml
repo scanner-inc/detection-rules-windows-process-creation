@@ -17,7 +17,7 @@ description: |-
   * False positives may occur if you execute the script from one of the paths mentioned in the rule. Apply additional filters that fits your org needs.
 severity: Medium
 query_text: |-
-  %ingest.source_type="windows:process-creation"
+  %ingest.source_type="windows:process_creation"
   (
     OriginalFileName: 'diskshadow.exe'
     or
