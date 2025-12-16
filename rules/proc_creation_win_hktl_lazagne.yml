@@ -17,7 +17,7 @@ description: |-
   * Some false positive is expected from tools with similar command line flags.
 severity: Medium
 query_text: |-
-  %ingest.source_type="windows:process_creation"
+  @scnr.source_type="windows:process_creation"
   (
     Image: '\\lazagne.exe'
     or (

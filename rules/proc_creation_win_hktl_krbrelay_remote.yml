@@ -12,7 +12,7 @@ description: |-
   * Unlikely
 severity: High
 query_text: |-
-  %ingest.source_type="windows:process_creation"
+  @scnr.source_type="windows:process_creation"
   (
     (
       Image:'\\RemoteKrbRelay.exe'
