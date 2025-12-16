@@ -17,7 +17,7 @@ description: |-
   * Unlikely
 severity: High
 query_text: |-
-  %ingest.source_type="windows:process_creation"
+  @scnr.source_type="windows:process_creation"
   ParentImage: '\\setres.exe'
   Image: '\\choice'
   (not
