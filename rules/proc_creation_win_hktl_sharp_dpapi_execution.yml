@@ -1,6 +1,5 @@
 # schema: https://scanner.dev/schema/scanner-detection-rule.v1.json
 name: HackTool - SharpDPAPI Execution
-enabled: true
 description: |-
   Detects the execution of the SharpDPAPI tool based on CommandLine flags and PE metadata.
   SharpDPAPI is a C# port of some DPAPI functionality from the Mimikatz project.

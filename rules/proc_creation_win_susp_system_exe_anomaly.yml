@@ -1,6 +1,5 @@
 # schema: https://scanner.dev/schema/scanner-detection-rule.v1.json
 name: System File Execution Location Anomaly
-enabled: true
 description: |-
   Detects the execution of a Windows system binary that is usually located in the system folder from an uncommon location.
 

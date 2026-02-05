@@ -1,6 +1,5 @@
 # schema: https://scanner.dev/schema/scanner-detection-rule.v1.json
 name: Suspicious Electron Application Child Processes
-enabled: true
 description: |-
   Detects suspicious child processes of electron apps (teams, discord, slack, etc.). This could be a potential sign of ".asar" file tampering (See reference section for more information) or binary execution proxy through specific CLI arguments (see related rule)
 

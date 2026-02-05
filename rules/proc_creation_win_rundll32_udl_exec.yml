@@ -1,6 +1,5 @@
 # schema: https://scanner.dev/schema/scanner-detection-rule.v1.json
 name: Potentially Suspicious Rundll32.EXE Execution of UDL File
-enabled: true
 description: |-
   Detects the execution of rundll32.exe with the oledb32.dll library to open a UDL file.
   Threat actors can abuse this technique as a phishing vector to capture authentication credentials or other sensitive data.

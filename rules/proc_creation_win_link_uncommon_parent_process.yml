@@ -1,6 +1,5 @@
 # schema: https://scanner.dev/schema/scanner-detection-rule.v1.json
 name: Uncommon Link.EXE Parent Process
-enabled: true
 description: |-
   Detects an uncommon parent process of "LINK.EXE".
   Link.EXE in Microsoft incremental linker. Its a utility usually bundled with Visual Studio installation.

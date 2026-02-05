@@ -1,6 +1,5 @@
 # schema: https://scanner.dev/schema/scanner-detection-rule.v1.json
 name: Powershell Executed From Headless ConHost Process
-enabled: true
 description: |-
   Detects the use of powershell commands from headless ConHost window.
   The "--headless" flag hides the windows from the user upon execution.

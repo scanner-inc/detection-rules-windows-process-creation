@@ -1,6 +1,5 @@
 # schema: https://scanner.dev/schema/scanner-detection-rule.v1.json
 name: Suspicious Process Masquerading As SvcHost.EXE
-enabled: true
 description: |-
   Detects a suspicious process that is masquerading as the legitimate "svchost.exe" by naming its binary "svchost.exe" and executing from an uncommon location.
   Adversaries often disguise their malicious binaries by naming them after legitimate system processes like "svchost.exe" to evade detection.

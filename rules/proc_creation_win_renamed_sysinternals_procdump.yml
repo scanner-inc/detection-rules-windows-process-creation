@@ -1,6 +1,5 @@
 # schema: https://scanner.dev/schema/scanner-detection-rule.v1.json
 name: Renamed ProcDump Execution
-enabled: true
 description: |-
   Detects the execution of a renamed ProcDump executable.
   This often done by attackers or malware in order to evade defensive mechanisms.

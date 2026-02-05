@@ -1,6 +1,5 @@
 # schema: https://scanner.dev/schema/scanner-detection-rule.v1.json
 name: HackTool - LaZagne Execution
-enabled: true
 description: |-
   Detects the execution of the LaZagne. A utility used to retrieve multiple types of passwords stored on a local computer.
   LaZagne has been leveraged multiple times by threat actors in order to dump credentials.
