@@ -59,9 +59,9 @@ query_text: |-
     Image,
     OriginalFileName,
     CommandLine,
-    SubjectDomainName,
-    SubjectUserName,
-    SubjectLogonId
+    User,
+    LogonId,
+    Computer
 time_range_s: 300
 run_frequency_s: 60
 event_sink_keys:
